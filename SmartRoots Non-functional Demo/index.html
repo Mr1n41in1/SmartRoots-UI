@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartRoots | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-dark: #0a1929;
+            --primary-blue: #143d5d;
+            --secondary-blue: #1e5f8a;
+            --accent-blue: #2a88c9;
+            --primary-green: #2a9d8f;
+            --accent-green: #4cceac;
+            --text-light: #e9ecef;
+            --text-muted: #adb5bd;
+            --card-bg: #152636;
+            --border-color: #2d4663;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            --hover-effect: brightness(1.2);
+            
+            /* Light mode variables */
+            --light-bg: #f5f7fa;
+            --light-card-bg: #ffffff;
+            --light-text: #2d3748;
+            --light-muted: #718096;
+            --light-border: #e2e8f0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            color: var(--text-light);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode {
+            background: linear-gradient(135deg, #e6f7ff, #f0f9ff);
+            color: var(--light-text);
+        }
+        
+        body.light-mode .login-left {
+            background: linear-gradient(rgba(240, 249, 255, 0.85), rgba(230, 247, 255, 0.95)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+        }
+        
+        body.light-mode .login-left h1 {
+            color: var(--primary-green);
+        }
+        
+        body.light-mode .login-left p {
+            color: var(--light-text);
+        }
+        
+        body.light-mode .login-right {
+            background: var(--light-bg);
+        }
+        
+        body.light-mode .login-form {
+            background: var(--light-card-bg);
+            border: 1px solid var(--light-border);
+            color: var(--light-text);
+        }
+        
+        body.light-mode .login-form h2 {
+            color: var(--primary-green);
+        }
+        
+        body.light-mode .form-group label {
+            color: var(--light-text);
+        }
+        
+        body.light-mode .form-group input {
+            background: #edf2f7;
+            color: var(--light-text);
+            border: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .dashboard,
+        body.light-mode .account-page,
+        body.light-mode .analysis-page,
+        body.light-mode .records-page,
+        body.light-mode .settings-page,
+        body.light-mode .help-page {
+            background: var(--light-bg);
+        }
+        
+        body.light-mode .topbar {
+            background: var(--light-card-bg);
+            border-bottom: 1px solid var(--light-border);
+            color: var(--light-text);
+        }
+        
+        body.light-mode .sidebar,
+        body.light-mode .card,
+        body.light-mode .account-profile,
+        body.light-mode .account-details,
+        body.light-mode .analysis-content,
+        body.light-mode .records-content,
+        body.light-mode .settings-content,
+        body.light-mode .help-content {
+            background: var(--light-card-bg);
+            border: 1px solid var(--light-border);
+            color: var(--light-text);
+        }
+        
+        body.light-mode .card-header {
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .card-header h2 {
+            color: var(--primary-green);
+        }
+        
+        body.light-mode .sidebar-menu button {
+            color: var(--light-text);
+        }
+        
+        body.light-mode .sidebar-menu button:hover, 
+        body.light-mode .sidebar-menu button.active {
+            background: linear-gradient(to right, var(--primary-green), var(--accent-blue));
+            color: white;
+        }
+        
+        body.light-mode .datetime {
+            border-top: 1px solid var(--light-border);
+            color: var(--light-muted);
+        }
+        
+        body.light-mode .data-item {
+            background: #edf2f7;
+        }
+        
+        body.light-mode .data-label {
+            color: var(--light-muted);
+        }
+        
+        body.light-mode .chart-placeholder {
+            background: #edf2f7;
+            color: var(--light-muted);
+        }
+        
+        body.light-mode .prediction-item, 
+        body.light-mode .recommendation-item {
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .prediction-item p, 
+        body.light-mode .recommendation-item p {
+            color: var(--light-muted);
+        }
+        
+        body.light-mode .detail-row {
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .detail-label {
+            color: var(--light-muted);
+        }
+        
+        body.light-mode .search-bar input {
+            background: #edf2f7;
+            color: var(--light-text);
+            border: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .profile-dropdown {
+            background: var(--light-card-bg);
+            border: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .profile-dropdown button {
+            color: var(--light-text);
+        }
+        
+        body.light-mode .profile-dropdown button:hover {
+            background: #edf2f7;
+        }
+        
+        body.light-mode .notification-dropdown {
+            background: var(--light-card-bg);
+            border: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .notification-item {
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .records-table {
+            border: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .records-table th {
+            background: #edf2f7;
+        }
+        
+        body.light-mode .records-table tr {
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .records-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        /* Login Page */
+        .login-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .login-left {
+            flex: 1;
+            background: linear-gradient(rgba(10, 25, 41, 0.85), rgba(10, 25, 41, 0.95)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .login-left h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+        
+        .login-left p {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 500px;
+            color: var(--text-light);
+        }
+        
+        .login-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--primary-dark);
+        }
+        
+        .login-form {
+            width: 400px;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: var(--primary-blue);
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(42, 136, 201, 0.3);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(to right, var(--primary-green), var(--accent-green));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover {
+            filter: var(--hover-effect);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        /* Topbar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--primary-dark);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 12px;
+        }
+        
+        .logo h1 {
+            font-size: 1.6rem;
+            background: linear-gradient(to right, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        body.light-mode .logo h1 {
+            background: linear-gradient(to right, var(--primary-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--primary-blue);
+            color: var(--text-light);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .language-selector {
+            position: relative;
+        }
+        
+        .language-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        body.light-mode .language-btn {
+            border: 1px solid var(--light-border);
+            color: var(--light-text);
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            width: 150px;
+            display: none;
+            z-index: 101;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .language-dropdown.show {
+            display: block;
+        }
+        
+        .language-dropdown button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            text-align: left;
+            padding: 0.9rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .language-dropdown button:hover {
+            background: var(--primary-blue);
+        }
+        
+        body.light-mode .language-dropdown {
+            background: var(--light-card-bg);
+            border: 1px solid var(--light-border);
+        }
+        
+        body.light-mode .language-dropdown button {
+            color: var(--light-text);
+        }
+        
+        body.light-mode .language-dropdown button:hover {
+            background: #edf2f7;
+        }
+        
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-bell i {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+        
+        body.light-mode .notification-bell i {
+            color: var(--light-text);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e63946;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            width: 300px;
+            display: none;
+            z-index: 101;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .notification-dropdown.show {
+            display: block;
+        }
+        
+        .notification-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .notification-item:hover {
+            background: var(--primary-blue);
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--accent-green);
+        }
+        
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            color: var(--accent-green);
+        }
+        
+        body.light-mode .theme-toggle {
+            color: var(--light-text);
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .profile:hover {
+            background: var(--primary-blue);
+        }
+        
+        body.light-mode .profile:hover {
+            background: #edf2f7;
+        }
+        
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+            border: 2px solid var(--accent-green);
+        }
+        
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            width: 180px;
+            display: none;
+            z-index: 101;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .profile-dropdown.show {
+            display: block;
+        }
+        
+        .profile-dropdown button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            text-align: left;
+            padding: 0.9rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .profile-dropdown button:hover {
+            background: var(--primary-blue);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 120px);
+            position: sticky;
+            top: 90px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .sidebar-menu {
+            flex: 1;
+        }
+        
+        .sidebar-menu button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            text-align: left;
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.5rem;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu button:hover, .sidebar-menu button.active {
+            background: linear-gradient(to right, var(--primary-green), var(--accent-blue));
+        }
+        
+        .datetime {
+            margin-top: auto;
+            padding: 1rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+        
+        /* Dashboard Content */
+        .dashboard-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 1.8rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h2 {
+            font-size: 1.3rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .alert-badge {
+            background: linear-gradient(to right, #e63946, #e76f51);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .interactive-map {
+            grid-column: 1 / 3;
+            height: 320px;
+            background: var(--primary-blue);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .map-input-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(10, 25, 41, 0.8);
+            padding: 1rem;
+            border-radius: 8px;
+            width: 300px;
+        }
+        
+        body.light-mode .map-input-container {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .map-input-container h3 {
+            margin-bottom: 0.8rem;
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+        
+        .coordinates-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .coordinates-input input {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--primary-dark);
+            color: var(--text-light);
+        }
+        
+        body.light-mode .coordinates-input input {
+            background: white;
+            color: var(--light-text);
+        }
+        
+        .coordinates-input button {
+            padding: 0.6rem 1rem;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .map-image {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(10, 25, 41, 0.9));
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        body.light-mode .map-overlay {
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.9));
+            color: var(--light-text);
+        }
+        
+        .map-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+        
+        .map-legend {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+        
+        .healthy {
+            background-color: var(--accent-green);
+        }
+        
+        .stressed {
+            background-color: #f4a261;
+        }
+        
+        .risk {
+            background-color: #e76f51;
+        }
+        
+        .data-item {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .data-label {
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        
+        .data-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+        
+        .chart-placeholder {
+            height: 200px;
+            background: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        .prediction-item, .recommendation-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        
+        .prediction-item:last-child, .recommendation-item:last-child {
+            border-bottom: none;
+        }
+        
+        .prediction-item strong, .recommendation-item strong {
+            color: var(--accent-green);
+        }
+        
+        .prediction-item p, .recommendation-item p {
+            color: var(--text-muted);
+        }
+        
+        /* Account Page */
+        .account-page {
+            display: none;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .account-header h1 {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .account-content {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .account-profile {
+            width: 300px;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .account-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--accent-green);
+        }
+        
+        .account-profile h2 {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-profile p {
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+        
+        .account-details {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .detail-label {
+            width: 180px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: var(--text-light);
+        }
+        
+        /* Previous Records Page */
+        .records-page {
+            display: none;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .records-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .records-header h1 {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .records-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .records-table th {
+            background: var(--primary-blue);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .records-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .records-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Analysis Page */
+        .analysis-page {
+            display: none;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .analysis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .analysis-header h1 {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .analysis-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+        
+        .crop-selector {
+            margin-bottom: 2rem;
+        }
+        
+        .crop-selector select {
+            padding: 0.8rem;
+            border-radius: 6px;
+            background: var(--primary-blue);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+        }
+        
+        body.light-mode .crop-selector select {
+            background: #edf2f7;
+            color: var(--light-text);
+            border: 1px solid var(--light-border);
+        }
+        
+        /* Settings Page */
+        .settings-page {
+            display: none;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .settings-header h1 {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .settings-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .settings-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .settings-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .settings-item h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--primary-blue);
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--accent-green);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .slider-label span {
+            flex: 1;
+        }
+        
+        select.setting-select {
+            padding: 0.6rem;
+            border-radius: 6px;
+            background: var(--primary-blue);
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            width: 100%;
+        }
+        
+        body.light-mode select.setting-select {
+            background: #edf2f7;
+            color: var(--light-text);
+            border: 1px solid var(--light-border);
+        }
+        
+        /* Help Page */
+        .help-page {
+            display: none;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .help-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .help-header h1 {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        
+        .help-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        
+        .help-section {
+            margin-bottom: 2rem;
+        }
+        
+        .help-section h2 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .help-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--primary-blue);
+            border-radius: 8px;
+        }
+        
+        body.light-mode .faq-item {
+            background: #edf2f7;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green);
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .contact-card {
+            padding: 1rem;
+            background: var(--primary-blue);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        body.light-mode .contact-card {
+            background: #edf2f7;
+        }
+        
+        .contact-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .interactive-map {
+                grid-column: 1;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            
+            .login-left {
+                padding: 1rem;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                margin-bottom: 2rem;
+                position: static;
+            }
+            
+            .topbar {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                margin: 1rem 0 0 0;
+                max-width: 100%;
+            }
+            
+            .account-content {
+                flex-direction: column;
+            }
+            
+            .account-profile {
+                width: 100%;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .map-input-container {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="login-page">
+        <div class="login-left">
+            <h1>SmartRoots</h1>
+            <p>Advanced agricultural monitoring and analytics for modern farmers</p>
+        </div>
+        <div class="login-right">
+            <div class="login-form">
+                <h2>Login to Your Account</h2>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                <button class="login-btn" id="login-btn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="logo">
+                <img src="logo.png" alt="SmartRoots Logo">
+                <h1>SmartRoots</h1>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search fields, crops, analytics...">
+            </div>
+            <div class="topbar-right">
+                <div class="language-selector">
+                    <button class="language-btn">
+                        <i class="fas fa-globe"></i> English
+                    </button>
+                    <div class="language-dropdown" id="language-dropdown">
+                        <button data-lang="english"><i class="fas fa-check"></i> English</button>
+                        <button data-lang="hindi">हिन्दी (Hindi)</button>
+                        <button data-lang="kannada">ಕನ್ನಡ (Kannada)</button>
+                    </div>
+                </div>
+                
+                <div class="notification-bell" id="notification-bell">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge">3</div>
+                    <div class="notification-dropdown" id="notification-dropdown">
+                        <div class="notification-header">Notifications</div>
+                        <div class="notification-item">
+                            <div class="notification-title">Pest Detected!</div>
+                            <div class="notification-desc">Potential pest activity detected in Field B</div>
+                            <div class="notification-time">2 hours ago</div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-title">Irrigation Needed</div>
+                            <div class="notification-desc">Low moisture levels in North section</div>
+                            <div class="notification-time">5 hours ago</div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-title">Weather Alert</div>
+                            <div class="notification-desc">Rain expected in next 24 hours</div>
+                            <div class="notification-time">Yesterday</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <div class="profile" id="profile-dropdown-trigger">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Farmer Profile">
+                    <span>Surya Prakash</span>
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <button id="account-btn"><i class="fas fa-user"></i> Account</button>
+                        <button id="analysis-btn"><i class="fas fa-chart-line"></i> Analysis</button>
+                        <button><i class="fas fa-cog"></i> Settings</button>
+                        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-menu">
+                    <button class="active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</button>
+                    <button data-page="records-page"><i class="fas fa-history"></i> Previous Records</button>
+                    <button data-page="analysis-page"><i class="fas fa-chart-line"></i> Analysis</button>
+                    <button data-page="settings-page"><i class="fas fa-cog"></i> Settings</button>
+                    <button data-page="help-page"><i class="fas fa-question-circle"></i> Help & Support</button>
+                </div>
+                <div class="datetime">
+                    <div id="current-date"></div>
+                    <div id="current-time"></div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="card interactive-map">
+                    <div class="map-input-container">
+                        <h3>Enter Coordinates</h3>
+                        <div class="coordinates-input">
+                            <input type="text" id="coordinates" placeholder="e.g., 23.6345, 85.3809">
+                            <button id="load-map">Load Map</button>
+                        </div>
+                    </div>
+                    <img src="https://www.jouav.com/wp-content/uploads/2024/08/hyperspectral-imaging.jpg" alt="Hyperspectral Imaging Map" class="map-image" id="map-image">
+                    <div class="map-overlay">
+                        <div class="map-title">Hyperspectral Imaging Analysis</div>
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <div class="legend-color healthy"></div>
+                                <span>Healthy</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color stressed"></div>
+                                <span>Stressed</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color risk"></div>
+                                <span>Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>LIVE DATA</h2>
+                        <span class="alert-badge">2 Alerts</span>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">NDVI</div>
+                        <div class="data-value">0.78</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">Temperature</div>
+                        <div class="data-value">28°C</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">Humidity</div>
+                        <div class="data-value">65%</div>
+                    </div>
+                    <div class="data-item">
+                        <div class="data-label">Alerts</div>
+                        <div class="data-value">2</div>
+                    </div>
+                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Click fields for details</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>TEMPORAL CHARTS</h2>
+                    </div>
+                    <div class="chart-placeholder">
+                        NDVI Trends | Health Score | Stress Indicators
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>PREDICTIONS</h2>
+                    </div>
+                    <div class="prediction-item">
+                        <strong>Next 7 Days</strong>
+                        <p>Mild weather, optimal for growth</p>
+                    </div>
+                    <div class="prediction-item">
+                        <strong>Risk Level</strong>
+                        <p>Low to moderate</p>
+                    </div>
+                    <div class="prediction-item">
+                        <strong>Weather Impact</strong>
+                        <p>Minimal rainfall expected</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>RECOMMENDATIONS</h2>
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Actions</strong>
+                        <p>Monitor soil moisture levels</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Apply Fertilizer</strong>
+                        <p>Nitrogen-based in NE quadrant</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Monitor Field-A</strong>
+                        <p>Check for pest activity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Page -->
+    <div class="account-page" id="account-page">
+        <div class="account-header">
+            <h1>Account Details</h1>
+            <button class="login-btn" id="back-to-dashboard">Back to Dashboard</button>
+        </div>
+        <div class="account-content">
+            <div class="account-profile">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Surya Prakash">
+                <h2>Surya Prakash</h2>
+                <p>Agronomist</p>
+                <p>Jharkhand, India</p>
+            </div>
+            <div class="account-details">
+                <div class="detail-row">
+                    <div class="detail-label">Farmer ID:</div>
+                    <div class="detail-value">FARM2023JH0876</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Full Name:</div>
+                    <div class="detail-value">Surya Prakash</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Email:</div>
+                    <div class="detail-value">surya.prakash@example.com</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date of Birth:</div>
+                    <div class="detail-value">April 15, 1985</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Age:</div>
+                    <div class="detail-value">38 years</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Designation:</div>
+                    <div class="detail-value">Agronomist</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Location:</div>
+                    <div class="detail-value">Jharkhand, India</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Experience:</div>
+                    <div class="detail-value">12 years</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Farm Size:</div>
+                    <div class="detail-value">45 acres</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Crops:</div>
+                    <div class="detail-value">Rice, Wheat, Maize</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Previous Records Page -->
+    <div class="records-page" id="records-page">
+        <div class="records-header">
+            <h1>Previous Records</h1>
+            <button class="login-btn" id="records-back-to-dashboard">Back to Dashboard</button>
+        </div>
+        <div class="records-content">
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Field</th>
+                        <th>Crop</th>
+                        <th>NDVI</th>
+                        <th>Yield (kg/ha)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12/05/2023</td>
+                        <td>Field A</td>
+                        <td>Wheat</td>
+                        <td>0.82</td>
+                        <td>4200</td>
+                        <td>Harvested</td>
+                    </tr>
+                    <tr>
+                        <td>28/04/2023</td>
+                        <td>Field B</td>
+                        <td>Rice</td>
+                        <td>0.76</td>
+                        <td>3800</td>
+                        <td>Harvested</td>
+                    </tr>
+                    <tr>
+                        <td>15/03/2023</td>
+                        <td>Field C</td>
+                        <td>Maize</td>
+                        <td>0.71</td>
+                        <td>3500</td>
+                        <td>Harvested</td>
+                    </tr>
+                    <tr>
+                        <td>02/02/2023</td>
+                        <td>Field A</td>
+                        <td>Wheat</td>
+                        <td>0.68</td>
+                        <td>—</td>
+                        <td>Growing</td>
+                    </tr>
+                    <tr>
+                        <td>18/11/2022</td>
+                        <td>Field D</td>
+                        <td>Rice</td>
+                        <td>0.79</td>
+                        <td>4100</td>
+                        <td>Harvested</td>
+                    </tr>
+                    <tr>
+                        <td>05/10/2022</td>
+                        <td>Field B</td>
+                        <td>Vegetables</td>
+                        <td>0.73</td>
+                        <td>2800</td>
+                        <td>Harvested</td>
+                    </tr>
+                    <tr>
+                        <td>22/08/2022</td>
+                        <td>Field C</td>
+                        <td>Maize</td>
+                        <td>0.75</td>
+                        <td>3700</td>
+                        <td>Harvested</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Analysis Page -->
+    <div class="analysis-page" id="analysis-page">
+        <div class="analysis-header">
+            <h1>Crop Yield Analysis</h1>
+            <button class="login-btn" id="analysis-back-to-dashboard">Back to Dashboard</button>
+        </div>
+        <div class="analysis-content">
+            <div class="crop-selector">
+                <label for="crop-select">Select Crop: </label>
+                <select id="crop-select">
+                    <option value="wheat">Wheat</option>
+                    <option value="rice">Rice</option>
+                    <option value="maize">Maize</option>
+                    <option value="vegetables">Vegetables</option>
+                </select>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="yield-chart"></canvas>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>YIELD INSIGHTS</h2>
+                </div>
+                <div class="prediction-item">
+                    <strong>Trend Analysis</strong>
+                    <p>Wheat yield has increased by 12% compared to last season</p>
+                </div>
+                <div class="prediction-item">
+                    <strong>Optimal Planting Period</strong>
+                    <p>November to December shows highest yield potential</p>
+                </div>
+                <div class="prediction-item">
+                    <strong>Recommendations</strong>
+                    <p>Consider using drought-resistant variants for Field B</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div class="settings-page" id="settings-page">
+        <div class="settings-header">
+            <h1>Settings</h1>
+            <button class="login-btn" id="settings-back-to-dashboard">Back to Dashboard</button>
+        </div>
+        <div class="settings-content">
+            <div class="settings-item">
+                <h3>Notification Preferences</h3>
+                <div class="slider-label">
+                    <span>Email Notifications</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="slider-label">
+                    <span>SMS Alerts</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="slider-label">
+                    <span>Push Notifications</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <h3>Data Preferences</h3>
+                <div class="slider-label">
+                    <span>Auto-Refresh Data</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="slider-label">
+                    <span>High Precision Mode</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div>
+                    <label for="data-interval">Data Update Frequency:</label>
+                    <select id="data-interval" class="setting-select">
+                        <option value="5">5 minutes</option>
+                        <option value="15" selected>15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <h3>Display Preferences</h3>
+                <div>
+                    <label for="temp-unit">Temperature Unit:</label>
+                    <select id="temp-unit" class="setting-select">
+                        <option value="celsius" selected>Celsius (°C)</option>
+                        <option value="fahrenheit">Fahrenheit (°F)</option>
+                    </select>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label for="language">Language:</label>
+                    <select id="language" class="setting-select">
+                        <option value="english" selected>English</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="kannada">Kannada</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-item">
+                <h3>Account Settings</h3>
+                <div class="slider-label">
+                    <span>Two-Factor Authentication</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="slider-label">
+                    <span>Data Backup</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Page -->
+    <div class="help-page" id="help-page">
+        <div class="help-header">
+            <h1>Help & Support</h1>
+            <button class="login-btn" id="help-back-to-dashboard">Back to Dashboard</button>
+        </div>
+        <div class="help-content">
+            <div class="help-section">
+                <h2>Getting Started</h2>
+                <p>Welcome to SmartRoots, your comprehensive agricultural monitoring solution. This guide will help you navigate through the platform and make the most of its features.</p>
+                <p>To begin monitoring your fields, navigate to the Dashboard where you can view real-time data, maps, and recommendations. Use the sidebar to access different sections of the application.</p>
+            </div>
+            
+            <div class="help-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <div class="faq-question">How often is the data updated?</div>
+                    <p>Data is updated in real-time from field sensors. You can adjust the update frequency in Settings according to your preference.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I interpret the NDVI values?</div>
+                    <p>NDVI (Normalized Difference Vegetation Index) values range from -1 to 1. Higher values (0.3-1) indicate healthy vegetation, while lower values suggest stressed or sparse vegetation.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I export my data for analysis?</div>
+                    <p>Yes, you can export your data in CSV format from the Previous Records section. This allows you to perform further analysis using external tools.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How accurate are the predictions?</div>
+                    <p>Our predictions are based on historical data, current conditions, and advanced machine learning algorithms. While highly accurate, they should be used as guidance alongside your expertise.</p>
+                </div>
+            </div>
+            
+            <div class="help-section">
+                <h2>Contact Support</h2>
+                <p>If you need further assistance, our support team is available to help you with any questions or issues you may encounter.</p>
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Support</h3>
+                        <p>support@smartroots.com</p>
+                        <p>Response within 24 hours</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone Support</h3>
+                        <p>+1 (800) 123-4567</p>
+                        <p>Mon-Fri, 9AM-5PM EST</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Live Chat</h3>
+                        <p>Available on dashboard</p>
+                        <p>24/7 for urgent issues</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Knowledge Base</h3>
+                        <p>Detailed guides & tutorials</p>
+                        <p>Community forum access</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // DOM Elements
+        const loginPage = document.getElementById('login-page');
+        const dashboard = document.getElementById('dashboard');
+        const accountPage = document.getElementById('account-page');
+        const recordsPage = document.getElementById('records-page');
+        const analysisPage = document.getElementById('analysis-page');
+        const settingsPage = document.getElementById('settings-page');
+        const helpPage = document.getElementById('help-page');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const accountBtn = document.getElementById('account-btn');
+        const analysisBtn = document.getElementById('analysis-btn');
+        const backToDashboardBtn = document.getElementById('back-to-dashboard');
+        const recordsBackToDashboardBtn = document.getElementById('records-back-to-dashboard');
+        const analysisBackToDashboardBtn = document.getElementById('analysis-back-to-dashboard');
+        const settingsBackToDashboardBtn = document.getElementById('settings-back-to-dashboard');
+        const helpBackToDashboardBtn = document.getElementById('help-back-to-dashboard');
+        const themeToggle = document.getElementById('theme-toggle');
+        const profileDropdownTrigger = document.getElementById('profile-dropdown-trigger');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        const notificationBell = document.getElementById('notification-bell');
+        const notificationDropdown = document.getElementById('notification-dropdown');
+        const languageBtn = document.querySelector('.language-btn');
+        const languageDropdown = document.getElementById('language-dropdown');
+        const sidebarButtons = document.querySelectorAll('.sidebar-menu button');
+        const cropSelect = document.getElementById('crop-select');
+        const loadMapBtn = document.getElementById('load-map');
+        const coordinatesInput = document.getElementById('coordinates');
+        const mapImage = document.getElementById('map-image');
+        
+        // Login functionality
+        loginBtn.addEventListener('click', function() {
+            loginPage.style.display = 'none';
+            dashboard.style.display = 'block';
+            initYieldChart();
+        });
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            dashboard.style.display = 'none';
+            accountPage.style.display = 'none';
+            recordsPage.style.display = 'none';
+            analysisPage.style.display = 'none';
+            settingsPage.style.display = 'none';
+            helpPage.style.display = 'none';
+            loginPage.style.display = 'flex';
+        });
+        
+        // Account page navigation
+        accountBtn.addEventListener('click', function() {
+            dashboard.style.display = 'none';
+            accountPage.style.display = 'block';
+        });
+        
+        // Analysis page navigation
+        analysisBtn.addEventListener('click', function() {
+            dashboard.style.display = 'none';
+            analysisPage.style.display = 'block';
+        });
+        
+        // Back to dashboard from account page
+        backToDashboardBtn.addEventListener('click', function() {
+            accountPage.style.display = 'none';
+            dashboard.style.display = 'block';
+        });
+        
+        // Back to dashboard from records page
+        recordsBackToDashboardBtn.addEventListener('click', function() {
+            recordsPage.style.display = 'none';
+            dashboard.style.display = 'block';
+        });
+        
+        // Back to dashboard from analysis page
+        analysisBackToDashboardBtn.addEventListener('click', function() {
+            analysisPage.style.display = 'none';
+            dashboard.style.display = 'block';
+        });
+        
+        // Back to dashboard from settings page
+        settingsBackToDashboardBtn.addEventListener('click', function() {
+            settingsPage.style.display = 'none';
+            dashboard.style.display = 'block';
+        });
+        
+        // Back to dashboard from help page
+        helpBackToDashboardBtn.addEventListener('click', function() {
+            helpPage.style.display = 'none';
+            dashboard.style.display = 'block';
+        });
+        
+        // Theme toggle
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+        
+        // Profile dropdown toggle
+        profileDropdownTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('show');
+        });
+        
+        // Notification dropdown toggle
+        notificationBell.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('show');
+        });
+        
+        // Language dropdown toggle
+        languageBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('show');
+        });
+        
+        // Language selection
+        document.querySelectorAll('.language-dropdown button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                languageBtn.innerHTML = `<i class="fas fa-globe"></i> ${this.textContent}`;
+                languageDropdown.classList.remove('show');
+                alert(`Language changed to ${lang}`);
+            });
+        });
+        
+        // Sidebar navigation
+        sidebarButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetPage = this.getAttribute('data-page');
+                if (targetPage) {
+                    dashboard.style.display = 'none';
+                    accountPage.style.display = 'none';
+                    recordsPage.style.display = 'none';
+                    analysisPage.style.display = 'none';
+                    settingsPage.style.display = 'none';
+                    helpPage.style.display = 'none';
+                    document.getElementById(targetPage).style.display = 'block';
+                    
+                    // Update active button
+                    sidebarButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    if (targetPage === 'analysis-page') {
+                        initYieldChart();
+                    }
+                }
+            });
+        });
+        
+        // Load map with coordinates
+        loadMapBtn.addEventListener('click', function() {
+            const coordinates = coordinatesInput.value.trim();
+            if (coordinates) {
+                mapImage.style.display = 'block';
+                // In a real application, you would use the coordinates to fetch the correct map
+                // For this demo, we'll just show the image
+            } else {
+                alert('Please enter coordinates first');
+            }
+        });
+        
+        // Allow Enter key to load map
+        coordinatesInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadMapBtn.click();
+            }
+        });
+        
+        // Close dropdowns when clicking outside
+        window.addEventListener('click', function() {
+            profileDropdown.classList.remove('show');
+            notificationDropdown.classList.remove('show');
+            languageDropdown.classList.remove('show');
+        });
+        
+        // Prevent dropdowns from closing when clicking inside them
+        document.querySelectorAll('.profile-dropdown, .notification-dropdown, .language-dropdown').forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        // Date and time display
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US');
+        }
+        
+        // Yield chart initialization
+        let yieldChart = null;
+        
+        function initYieldChart() {
+            const ctx = document.getElementById('yield-chart').getContext('2d');
+            
+            if (yieldChart) {
+                yieldChart.destroy();
+            }
+            
+            // Generate random data for the chart
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const currentYield = Array.from({length: 12}, () => Math.floor(Math.random() * 1000) + 3000);
+            const previousYield = Array.from({length: 12}, () => Math.floor(Math.random() * 1000) + 2500);
+            
+            yieldChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Current Year Yield (kg/ha)',
+                            data: currentYield,
+                            borderColor: '#4cceac',
+                            backgroundColor: 'rgba(76, 206, 172, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Previous Year Yield (kg/ha)',
+                            data: previousYield,
+                            borderColor: '#2a88c9',
+                            backgroundColor: 'rgba(42, 136, 201, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Crop Yield Comparison',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Yield (kg/ha)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Crop selection change
+        cropSelect.addEventListener('change', function() {
+            initYieldChart();
+        });
+        
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+</body>
+</html>
